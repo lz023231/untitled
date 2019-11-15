@@ -155,12 +155,13 @@ def getData_beijing(html_text):
     ifo = input['value']
     ifo1 = ifo.split()
     weather = ifo1[3].split("/")
-    hei = weather[1][0:1]
+    hei = weather[1]
+    e = hei.split("°")
     print(weather)
     print('---')
     print(ifo1)
     print(type(ifo1[3]))
-    temp.extend(['北京', ifo1[2], hei, weather[0], '2.00'])
+    temp.extend(['北京', ifo1[2], e[0], weather[0], '2.00'])
     st = '=@@='.join(temp)
     print(type(temp))
     with open('C:\weather.txt', 'a') as f:
@@ -179,16 +180,17 @@ def getData_shanghai(html_text):
     data = body.find('div', {'id': '7d'})
     # print(data)
     input = data.find('input')
-    # print(input.prettify())
+    #print(input.prettify())
     ifo = input['value']
     ifo1 = ifo.split()
     weather = ifo1[3].split("/")
-    hei = weather[1][0:1]
+    hei = weather[1]
+    e = hei.split("°")
+    print(e[0])
     print(weather)
-    print('---')
     print(ifo1)
     print(type(ifo1[3]))
-    temp.extend(['上海', ifo1[2], hei, weather[0], '2.00'])
+    temp.extend(['上海', ifo1[2], e[0], weather[0], '2.00'])
     st = '=@@='.join(temp)
     print(type(temp))
     with open('C:\weather.txt', 'a') as f:
@@ -211,12 +213,13 @@ def getData_guangzhou(html_text):
     ifo = input['value']
     ifo1 = ifo.split()
     weather = ifo1[3].split("/")
-    hei = weather[1][0:1]
+    hei = weather[1]
+    e = hei.split("°")
     print(weather)
     print('---')
     print(ifo1)
     print(type(ifo1[3]))
-    temp.extend(['广州', ifo1[2], hei, weather[0], '2.00'])
+    temp.extend(['广州', ifo1[2], e[0], weather[0], '2.00'])
     st = '=@@='.join(temp)
     print(type(temp))
     with open('C:\weather.txt', 'a') as f:
@@ -239,12 +242,13 @@ def getData_shenzhen(html_text):
     ifo = input['value']
     ifo1 = ifo.split()
     weather = ifo1[3].split("/")
-    hei = weather[1][0:1]
+    hei = weather[1]
+    e = hei.split("°")
     print(weather)
     print('---')
     print(ifo1)
     print(type(ifo1[3]))
-    temp.extend(['深圳', ifo1[2], hei, weather[0], '2.00'])
+    temp.extend(['深圳', ifo1[2], e[0], weather[0], '2.00'])
     st = '=@@='.join(temp)
     #print(type(temp))
     with open('C:\weather.txt', 'a') as f:
