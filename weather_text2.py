@@ -70,7 +70,22 @@ def getData(html_text, location):
 
 def main():
     url_beijing = 'http://www.weather.com.cn/weather/101010100.shtml'
-    html = getContent(url_beijing)
-    getData(html, '北京')
+    html_beijing = getContent(url_beijing)
+    getData(html_beijing, '北京')
 
-main()
+    url_shanghai = 'http://www.weather.com.cn/weather/101020100.shtml'
+    html_shanghai = getContent(url_shanghai)
+    getData(html_shanghai, '上海')
+
+    url_guangzhou = 'http://www.weather.com.cn/weather/101280101.shtml'
+    html_guangzhou = getContent(url_guangzhou)
+    getData(html_guangzhou, '广州')
+
+    url_shenzhen = 'http://www.weather.com.cn/weather/101280601.shtml'
+    html_shenzhen = getContent(url_shenzhen)
+    getData(html_shenzhen, '深圳')
+
+
+while True:
+    main()
+    time.sleep(30)
