@@ -64,6 +64,7 @@ def getData(html_text):
         temp.append(temperature_highest)
         final.append(temp)
     print('getData success')
+    print(final)
     return final
 
 

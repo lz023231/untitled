@@ -4,7 +4,9 @@ import random
 import socket
 import http.client
 import csv
-# import pymysql
+import pymysql
+import xlrd
+import xlwt
 from bs4 import BeautifulSoup
 
 
@@ -60,32 +62,90 @@ def getData(html_text, location):
     print(weather)
     print('---')
     print(ifo1)
-    print(type(ifo1[3]))
+    print(type(e[0]))
     temp.extend([location, ifo1[2], e[0], weather[0], '2.00'])
+    print(temp)
+
+
+
+
+
+    #下面的内容是修改编写SQL语句，供方法write_to_mysql（）使用，写入到MySQL中
+    x = '(' + "'" + location + "'"+ ',' + "'" + ifo1[2] + "'" + ',' + "'" + e[0] + "'" + ',' +"'" +  weather[0] + "'" + ',' + "'" + '2.00' + "'" + ')'
+    print(x)
+    sql = "insert into weather(city, weather, lowest, highest, fix) values" + x
+
+    print(sql)
+    print(type(sql))
+    return sql
+
+    '''
+    写入到文件中用下面注释的内容
     st = '=@@='.join(temp)
     print(type(temp))
     with open('C:\weather.txt', 'a') as f:
         f.write(st)
         f.write('\n')
+    '''
+def data_write(file_path, datas):
+    f = xlwt.Workbook()
+    sheet1 = f.add_sheet(u'sheet1', cell_overwrite_ok=True)  # 创建sheet
+
+    # 将数据写入第 i 行，第 j 列
+    i = 0
+    for data in datas:
+        #for j in range(len(data)):
+            #sheet1.write(j, i, data)
+        sheet1.write(0,i,data)
+        i = i + 1
+
+    f.save(file_path)
+
+
+def write_to_mysql(sql_text):
+    conn = pymysql.connect(host = '192.168.10.4', user = 'root', password = '123456', database = 'data', charset = 'utf8')
+    cursor = conn.cursor()
+    #sql = 'insert into weather(city, weather, lowest, highest, fix) values(北京,晴,7,-4,2.00)'
+    cursor.execute(sql_text)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 
 def main():
     url_beijing = 'http://www.weather.com.cn/weather/101010100.shtml'
     html_beijing = getContent(url_beijing)
-    getData(html_beijing, '北京')
+    sql_beijing = getData(html_beijing, '北京')
+    #datas_beijing = getData(html_beijing, '北京')
+    write_to_mysql(sql_beijing)
+    #data_write(r'C:\Users\赵泽雷\Desktop\直播数据\weather.xls', datas=datas_beijing)
+
+
 
     url_shanghai = 'http://www.weather.com.cn/weather/101020100.shtml'
     html_shanghai = getContent(url_shanghai)
-    getData(html_shanghai, '上海')
+    sql_shanghai = getData(html_shanghai, '上海')
+    write_to_mysql(sql_shanghai)
+    #datas_shanghai = getData(html_shanghai, '上海')
+    #data_write(r'C:\Users\赵泽雷\Desktop\直播数据\weather.xls', datas=datas_shanghai)
+
+
 
     url_guangzhou = 'http://www.weather.com.cn/weather/101280101.shtml'
     html_guangzhou = getContent(url_guangzhou)
-    getData(html_guangzhou, '广州')
+    sql_guangzhou = getData(html_guangzhou, '广州')
+    write_to_mysql(sql_guangzhou)
+    #datas_guangzhou = getData(html_guangzhou, '广州')
+    #data_write(r'C:\Users\赵泽雷\Desktop\直播数据\weather.xls', datas=datas_guangzhou)
 
     url_shenzhen = 'http://www.weather.com.cn/weather/101280601.shtml'
     html_shenzhen = getContent(url_shenzhen)
-    getData(html_shenzhen, '深圳')
+    sql_shenzhen = getData(html_shenzhen, '深圳')
+    write_to_mysql(sql_shenzhen)
+    #datas_shenzhen = getData(html_shenzhen, '深圳')
+    #data_write(r'C:\Users\赵泽雷\Desktop\直播数据\weather.xls', datas=datas_shenzhen)
 
 
 while True:
     main()
-    time.sleep(30)
+    time.sleep(1000)
