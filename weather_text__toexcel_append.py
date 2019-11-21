@@ -3,10 +3,14 @@ import time
 import random
 import socket
 import http.client
+
+#import win32com
 from xlutils.copy import copy
 import csv
 import pymysql
 import xlrd
+import win32com.client
+from win32com.client import Dispatch
 import xlwt
 from bs4 import BeautifulSoup
 
@@ -117,6 +121,26 @@ def write_to_mysql(sql_text):
     conn.close()
 
 
+def delete_excel():
+    xlBook = win32com.client.Dispatch('Excel.Application').Workbooks.Open(r"C:\Users\赵泽雷\Desktop\直播数据\weather.xls")
+
+
+    sht = xlBook.Worksheets('Sheet1')
+
+    # 这里的函数可以自己遍历去读，也可以根据实际情况直接设定一个较大的值
+
+    for i in range(1, 9):
+
+    #   excel删除行级操作，删除第一行后，后面的会覆盖前面删除的行
+
+        sht.Rows(1).Delete()
+
+    xlBook.Save()
+
+    xlBook.Close(SaveChanges=0)
+
+
+
 def main():
     url_beijing = 'http://www.weather.com.cn/weather/101010100.shtml'
     html_beijing = getContent(url_beijing)
@@ -145,7 +169,7 @@ def main():
     # write_to_mysql(sql_shenzhen)
     datas_shenzhen = getData(html_shenzhen, '深圳')
     data_write(r'C:\Users\赵泽雷\Desktop\直播数据\weather.xls', datas=datas_shenzhen)
-
+    delete_excel()
 
 while True:
     main()
