@@ -34,6 +34,7 @@ for i in range(nrows):
     y2 = "".join(h2)
     y3 = "".join(h3)
     phono = y3.find("坐标")
+    #有时候查询出来b[2]是电话信息，所以需要判断，如果b[2]包含坐标则写入b[2],如果不包含则写入b[3]
     if phono != -1:
         zb = b[2]
     else:
