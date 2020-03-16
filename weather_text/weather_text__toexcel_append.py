@@ -72,7 +72,7 @@ def getData(html_text, location):
     # 写入Excel是有下面一行，如果不写入Excel，将下面一行注释
     return temp
 
-    '''
+'''
     下面的内容是修改编写SQL语句，供方法write_to_mysql（）使用，写入到MySQL中
     x = '(' + "'" + location + "'"+ ',' + "'" + ifo1[2] + "'" + ',' + "'" + e[0] + "'" + ',' +"'" +  weather[0] + "'" + ',' + "'" + '2.00' + "'" + ')'
     print(x)
@@ -81,15 +81,16 @@ def getData(html_text, location):
     print(sql)
     print(type(sql))
     return sql
-    '''
-    '''
+    
+    
     写入到文件中用下面注释的内容
     st = '=@@='.join(temp)
     print(type(temp))
     with open('C:\weather.txt', 'a') as f:
         f.write(st)
         f.write('\n')
-    '''
+        
+'''
 
 
 def data_write(file_path, datas):
